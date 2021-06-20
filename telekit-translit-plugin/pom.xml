@@ -6,9 +6,86 @@
     <parent>
         <artifactId>telekit-plugins</artifactId>
         <groupId>org.telekit.plugins</groupId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>telekit-translit-plugin</artifactId>
+
+    <properties>
+        <plugin.name>Translit</plugin.name>
+        <launcherClass>org.telekit.plugins.translit.demo.PluginLauncher</launcherClass>
+    </properties>
+
+    <build>
+        <resources>
+            <!-- everything in the `resources` goes under package prefix -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>org/telekit/plugins/translit</targetPath>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>org/telekit/plugins/translit</targetPath>
+                <filtering>true</filtering>
+                <includes>
+                    <include>plugin.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${launcherClass}</mainClass>
+                    <executable>${java.home}/bin/java</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>demo</id>
+                        <configuration>
+                            <mainClass>${launcherClass}</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${bld.distribDirectory}</outputDirectory>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                    <attach>false</attach>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/plugin.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -31,6 +108,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

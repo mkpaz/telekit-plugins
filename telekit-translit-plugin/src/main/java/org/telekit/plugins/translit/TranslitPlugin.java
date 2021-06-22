@@ -5,6 +5,7 @@ import org.telekit.base.i18n.BundleLoader;
 import org.telekit.base.plugin.Includes;
 import org.telekit.base.plugin.Metadata;
 import org.telekit.base.plugin.Plugin;
+import org.telekit.base.service.ArtifactRepository;
 import org.telekit.base.util.ClasspathResource;
 import org.telekit.plugins.translit.i18n.TranslitMessages;
 import org.telekit.plugins.translit.tool.TranslitTool;
@@ -46,6 +47,12 @@ public class TranslitPlugin implements Plugin {
 
     @Override
     public BundleLoader getBundleLoader() { return TranslitMessages.getLoader(); }
+
+    @Override
+    public Collection<String> getStylesheets() { return Collections.emptyList(); }
+
+    @Override
+    public ArtifactRepository getRepository() { return null; }
 
     @Override
     public void start() {}

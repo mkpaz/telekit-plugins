@@ -1,30 +1,45 @@
 package org.telekit.plugins.ss7utils.mtp;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.kordamp.ikonli.material2.Material2MZ;
 import org.telekit.base.desktop.Component;
 import org.telekit.base.di.Initializable;
 import org.telekit.base.domain.exception.InvalidInputException;
-import org.telekit.base.util.TextBuilder;
 import org.telekit.controls.util.BindUtils;
 import org.telekit.controls.util.Controls;
+import org.telekit.controls.util.TableUtils;
 import org.telekit.plugins.ss7utils.i18n.SS7UtilsMessages;
 import org.telekit.plugins.ss7utils.mtp.SignallingPointCode.Format;
 import org.telekit.plugins.ss7utils.mtp.SignallingPointCode.Type;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
+import static javafx.collections.FXCollections.emptyObservableList;
+import static javafx.geometry.Pos.CENTER_LEFT;
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 import static org.apache.commons.lang3.StringUtils.*;
 import static org.telekit.base.i18n.I18n.t;
-import static org.telekit.controls.util.Containers.*;
+import static org.telekit.controls.i18n.ControlsMessages.*;
+import static org.telekit.controls.util.Containers.horizontalSpacer;
+import static org.telekit.controls.util.Containers.verticalSpacer;
+import static org.telekit.controls.util.Controls.menuItem;
+import static org.telekit.controls.util.TableUtils.setColumnConstraints;
 
 @Singleton
 public class SPCConverterView extends HBox implements Initializable, Component {
@@ -35,7 +50,7 @@ public class SPCConverterView extends HBox implements Initializable, Component {
     ComboBox<Type> typeChoice;
     TextField spcText;
     ComboBox<Format> formatChoice;
-    TextArea result;
+    TableView<Pair<String, String>> resultTable;
     Button convertBtn;
 
     @Inject
@@ -53,7 +68,8 @@ public class SPCConverterView extends HBox implements Initializable, Component {
         formatChoice.setButtonCell(new SPCFormatCell());
         formatChoice.setCellFactory(property -> new SPCFormatCell());
 
-        result = Controls.create(TextArea::new, "monospace");
+        resultTable = createResultTable();
+        resultTable.setPrefHeight(200);
 
         HBox spcBox = new HBox();
         spcBox.setSpacing(0);
@@ -71,7 +87,7 @@ public class SPCConverterView extends HBox implements Initializable, Component {
                 verticalSpacer(),
                 new Label(t(SS7UtilsMessages.SS7UTILS_SIGNALLING_POINT_CODE)),
                 spcBox,
-                result,
+                resultTable,
                 convertBtn,
                 verticalSpacer()
         );
@@ -83,6 +99,37 @@ public class SPCConverterView extends HBox implements Initializable, Component {
         );
         setPadding(new Insets(10));
         setId("spc-converter");
+    }
+
+    private TableView<Pair<String, String>> createResultTable() {
+        TableColumn<Pair<String, String>, Integer> keyColumn = TableUtils.createColumn(t(FORMAT), "key");
+        setColumnConstraints(keyColumn, 100, USE_COMPUTED_SIZE, false, CENTER_LEFT);
+
+        TableColumn<Pair<String, String>, String> valueColumn = TableUtils.createColumn(t(VALUE), "value");
+        setColumnConstraints(valueColumn, 200, USE_COMPUTED_SIZE, false, CENTER_LEFT);
+
+        TableView<Pair<String, String>> table = new TableView<>();
+        table.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table.getColumns().setAll(List.of(keyColumn, valueColumn));
+
+        // COPY DATA
+
+        Function<Pair<String, String>, String> rowToString = Pair::getValue;
+
+        ContextMenu contextMenu = new ContextMenu();
+        table.setContextMenu(contextMenu);
+        contextMenu.getItems().add(
+                menuItem(t(ACTION_COPY), null, e -> TableUtils.copySelectedRowsToClipboard(table, rowToString))
+        );
+
+        table.setOnKeyPressed(e -> {
+            if (new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY).match(e)) {
+                TableUtils.copySelectedRowsToClipboard(table, rowToString);
+            }
+        });
+
+        return table;
     }
 
     @Override
@@ -121,27 +168,26 @@ public class SPCConverterView extends HBox implements Initializable, Component {
             SignallingPointCode spc = SignallingPointCode.parse(spcStr, type, fmt);
             updateResult(spc);
         } catch (InvalidInputException e) {
-            result.setText(t(SS7UtilsMessages.SS7UTILS_MSG_INVALID_POINT_CODE));
+            resultTable.setItems(emptyObservableList());
         }
     }
 
     private void updateResult(SignallingPointCode spc) {
-        TextBuilder text = new TextBuilder();
-
-        text.appendLine(pad("DEC:"), spc.toString(Format.DEC));
-        text.appendLine(pad("HEX:"), spc.toString(Format.HEX));
-        text.appendLine(pad("BIN:"), spc.toString(Format.BIN));
+        List<Pair<String, String>> result = new ArrayList<>();
+        result.add(ImmutablePair.of("DEC", spc.toString(Format.DEC)));
+        result.add(ImmutablePair.of("HEX", spc.toString(Format.HEX)));
+        result.add(ImmutablePair.of("BIN", spc.toString(Format.BIN)));
 
         if (spc.getLength() == Type.ITU.getBitLength()) {
-            text.appendLine(pad("ITU [3-8-3]:"), spc.toString(Format.STRUCT_383));
-            text.appendLine(pad("RUS [8-6]:"), spc.toString(Format.STRUCT_86));
+            result.add(ImmutablePair.of("ITU [3-8-3]", spc.toString(Format.STRUCT_383)));
+            result.add(ImmutablePair.of("RUS [8-6]", spc.toString(Format.STRUCT_86)));
         }
 
         if (spc.getLength() == Type.ANSI.getBitLength()) {
-            text.appendLine(pad("ANSI [8-8-8]:"), spc.toString(Format.STRUCT_888));
+            result.add(ImmutablePair.of("ANSI [8-8-8", spc.toString(Format.STRUCT_888)));
         }
 
-        result.setText(text.toString());
+        resultTable.setItems(FXCollections.observableArrayList(result));
     }
 
     private static String pad(String name) {

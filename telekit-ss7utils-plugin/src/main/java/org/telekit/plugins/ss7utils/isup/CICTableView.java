@@ -41,7 +41,7 @@ public class CICTableView extends HBox implements Initializable, Component {
 
     private void createView() {
         VBox streamsBox = new VBox();
-        streamsBox.setSpacing(10);
+        streamsBox.setSpacing(5);
 
         listStreams = Controls.create(ListView::new, "monospace");
         listStreams.setPrefWidth(120);
@@ -49,7 +49,7 @@ public class CICTableView extends HBox implements Initializable, Component {
         VBox.setVgrow(listStreams, Priority.ALWAYS);
 
         VBox timeslotsBox = new VBox();
-        timeslotsBox.setSpacing(10);
+        timeslotsBox.setSpacing(5);
 
         listTimeslots = Controls.create(ListView::new, "monospace");
         listTimeslots.setPrefWidth(120);
@@ -61,15 +61,13 @@ public class CICTableView extends HBox implements Initializable, Component {
         firstCic = new Label();
         lastCic = new Label();
 
-        GridPane infoPane = Containers.create(GridPane::new, "info");
+        GridPane infoPane = Containers.gridPane(10, 5, Insets.EMPTY, "info");
         infoPane.setMaxHeight(Region.USE_PREF_SIZE);
-        infoPane.setVgap(10);
-        infoPane.setHgap(10);
 
         infoPane.add(new Label(t(SS7UtilsMessages.SEARCH)), 0, 0, GridPane.REMAINING, 1);
         infoPane.add(cicSearch, 0, 1, GridPane.REMAINING, 1);
 
-        infoPane.add(verticalGap(15), 0, 2, GridPane.REMAINING, 1);
+        infoPane.add(verticalGap(10), 0, 2, GridPane.REMAINING, 1);
 
         infoPane.add(new Label(" " + t(SS7UtilsMessages.SS7UTILS_FIRST_CIC) + " :"), 0, 3, 1, 1);
         infoPane.add(firstCic, 1, 3, 1, 1);
@@ -92,8 +90,8 @@ public class CICTableView extends HBox implements Initializable, Component {
                 timeslotsBox,
                 horizontalSpacer()
         );
-        setSpacing(20);
-        setPadding(new Insets(10, 0, 10, 0));
+        setSpacing(10);
+        setPadding(new Insets(10));
         setId("cic-table");
     }
 
@@ -127,8 +125,8 @@ public class CICTableView extends HBox implements Initializable, Component {
         }
 
         listTimeslots.setItems(timeslots);
-        firstCic.setText(String.valueOf(CollectionUtils.getFirst(cicIDs)));
-        lastCic.setText(String.valueOf(CollectionUtils.getLast(cicIDs)));
+        firstCic.setText(String.valueOf(CollectionUtils.getFirstElement(cicIDs)));
+        lastCic.setText(String.valueOf(CollectionUtils.getLastElement(cicIDs)));
     }
 
     private void findCICPositionAndScrollToIt(String str) {

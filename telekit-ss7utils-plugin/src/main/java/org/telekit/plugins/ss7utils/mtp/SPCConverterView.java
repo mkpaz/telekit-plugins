@@ -24,8 +24,7 @@ import javax.inject.Singleton;
 
 import static org.apache.commons.lang3.StringUtils.*;
 import static org.telekit.base.i18n.I18n.t;
-import static org.telekit.controls.util.Containers.horizontalSpacer;
-import static org.telekit.controls.util.Containers.verticalSpacer;
+import static org.telekit.controls.util.Containers.*;
 
 @Singleton
 public class SPCConverterView extends HBox implements Initializable, Component {
@@ -67,7 +66,7 @@ public class SPCConverterView extends HBox implements Initializable, Component {
 
         VBox content = new VBox();
         content.setAlignment(Pos.CENTER_LEFT);
-        content.setSpacing(10);
+        content.setSpacing(5);
         content.getChildren().addAll(
                 verticalSpacer(),
                 new Label(t(SS7UtilsMessages.SS7UTILS_SIGNALLING_POINT_CODE)),
@@ -82,7 +81,7 @@ public class SPCConverterView extends HBox implements Initializable, Component {
                 content,
                 horizontalSpacer()
         );
-        setPadding(new Insets(20, 0, 20, 0));
+        setPadding(new Insets(10));
         setId("spc-converter");
     }
 

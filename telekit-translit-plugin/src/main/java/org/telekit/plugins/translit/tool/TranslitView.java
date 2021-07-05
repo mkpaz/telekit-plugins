@@ -18,10 +18,10 @@ import org.telekit.plugins.translit.i18n.TranslitMessages;
 import javax.inject.Singleton;
 import java.util.List;
 
+import static javafx.geometry.Pos.CENTER_LEFT;
 import static org.apache.commons.lang3.StringUtils.trim;
 import static org.telekit.base.i18n.I18n.t;
-import static org.telekit.controls.util.Containers.horizontalSpacer;
-import static org.telekit.controls.util.Containers.rowConstraints;
+import static org.telekit.controls.util.Containers.*;
 
 @Singleton
 public class TranslitView extends GridPane implements Initializable, Component {
@@ -44,9 +44,7 @@ public class TranslitView extends GridPane implements Initializable, Component {
         runBtn.setGraphic(Controls.fontIcon(Material2AL.LANGUAGE));
         runBtn.setOnAction(e -> transliterate());
 
-        HBox origBox = new HBox();
-        origBox.setAlignment(Pos.CENTER_LEFT);
-        origBox.setSpacing(20);
+        HBox origBox = hbox(10, CENTER_LEFT, Insets.EMPTY);
         origBox.getChildren().addAll(
                 new Label(TranslitMessages.TEXT),
                 langChoice,
@@ -57,12 +55,12 @@ public class TranslitView extends GridPane implements Initializable, Component {
         origText = new TextArea();
         origText.setWrapText(true);
 
-        HBox resultBox = new HBox();
-        origBox.setAlignment(Pos.CENTER_LEFT);
+        HBox resultBox = hbox(10, CENTER_LEFT, Insets.EMPTY);
 
         Label resultLabel = new Label(t(TranslitMessages.TRANSLIT_TRANSLITERATED_TEXT) + " [EN]");
 
         resultText = new TextArea();
+        resultText.setEditable(false);
         resultText.setWrapText(true);
 
         add(origBox, 0, 0);
@@ -82,8 +80,8 @@ public class TranslitView extends GridPane implements Initializable, Component {
         getColumnConstraints().addAll(columnConstraints, columnConstraints);
 
         setVgap(5);
-        setHgap(20);
-        setPadding(new Insets(5));
+        setHgap(10);
+        setPadding(new Insets(10));
         setId("translit");
     }
 

@@ -7,6 +7,7 @@ import org.telekit.base.plugin.Metadata;
 import org.telekit.base.plugin.Plugin;
 import org.telekit.base.plugin.ToolGroup;
 import org.telekit.base.service.ArtifactRepository;
+import org.telekit.base.service.EncryptionService;
 import org.telekit.base.util.ClasspathResource;
 import org.telekit.plugins.ss7utils.i18n.SS7UtilsMessages;
 import org.telekit.plugins.ss7utils.isup.CICTableTool;
@@ -62,6 +63,9 @@ public class SS7UtilsPlugin implements Plugin {
 
     @Override
     public void stop() {}
+
+    @Override
+    public void updateEncryptedData(EncryptionService encryptionService, EncryptionService encryptionService1) {}
 
     @Override
     public boolean providesDocs() { return false; }

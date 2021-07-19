@@ -6,6 +6,7 @@ import org.telekit.base.plugin.Includes;
 import org.telekit.base.plugin.Metadata;
 import org.telekit.base.plugin.Plugin;
 import org.telekit.base.service.ArtifactRepository;
+import org.telekit.base.service.EncryptionService;
 import org.telekit.base.util.ClasspathResource;
 import org.telekit.plugins.translit.i18n.TranslitMessages;
 import org.telekit.plugins.translit.tool.TranslitTool;
@@ -59,6 +60,9 @@ public class TranslitPlugin implements Plugin {
 
     @Override
     public void stop() {}
+
+    @Override
+    public void updateEncryptedData(EncryptionService encryptionService, EncryptionService encryptionService1) {}
 
     @Override
     public boolean providesDocs() { return false; }

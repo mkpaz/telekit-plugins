@@ -1,6 +1,6 @@
 package org.telekit.plugins.ss7utils.mtp;
 
-import org.telekit.base.domain.exception.InvalidInputException;
+import org.telekit.plugins.ss7utils.InvalidInputException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,9 +91,9 @@ public class SignallingPointCode {
             case DEC -> String.valueOf(value);
             case HEX -> Integer.toHexString(value).toUpperCase();
             case BIN -> toBinaryString(value, length);
-            case STRUCT_383 -> toStructInteger(value, length, new int[] {3, 8, 3});
-            case STRUCT_86 -> toStructInteger(value, length, new int[] {8, 6});
-            case STRUCT_888 -> toStructInteger(value, length, new int[] {8, 8, 8});
+            case STRUCT_383 -> toStructInteger(value, length, new int[]{3, 8, 3});
+            case STRUCT_86 -> toStructInteger(value, length, new int[]{8, 6});
+            case STRUCT_888 -> toStructInteger(value, length, new int[]{8, 8, 8});
         };
     }
 
@@ -110,52 +110,52 @@ public class SignallingPointCode {
             case DEC:
                 if (isInteger(str)) {
                     value = parseInt(str);
-                    valid = between(value, 0, largestBitValue(length));
+                    valid = isBetween(value, 0, largestBitValue(length));
                 }
                 break;
             case HEX:
                 if (isHex(str)) {
                     value = parseInt(str, 16);
-                    valid = between(value, 0, largestBitValue(length));
+                    valid = isBetween(value, 0, largestBitValue(length));
                 }
                 break;
             case BIN:
                 if (isBinary(str)) {
                     value = parseInt(str, 2);
-                    valid = between(value, 0, largestBitValue(length));
+                    valid = isBetween(value, 0, largestBitValue(length));
                 }
                 break;
             case STRUCT_383:
                 if (isStructInteger(str, 3)) {
                     String[] parts = str.split(STRUCT_SEPARATOR, -1);
-                    valid = between(parseInt(parts[0]), 0, largestBitValue(3)) &&
-                            between(parseInt(parts[1]), 0, largestBitValue(8)) &&
-                            between(parseInt(parts[2]), 0, largestBitValue(3));
+                    valid = isBetween(parseInt(parts[0]), 0, largestBitValue(3)) &&
+                            isBetween(parseInt(parts[1]), 0, largestBitValue(8)) &&
+                            isBetween(parseInt(parts[2]), 0, largestBitValue(3));
                     value = parseInt(toBinaryString(parts[0], 3) +
-                                             toBinaryString(parts[1], 8) +
-                                             toBinaryString(parts[2], 3)
+                                    toBinaryString(parts[1], 8) +
+                                    toBinaryString(parts[2], 3)
                             , 2);
                 }
                 break;
             case STRUCT_86:
                 if (isStructInteger(str, 2)) {
                     String[] parts = str.split(STRUCT_SEPARATOR, -1);
-                    valid = between(parseInt(parts[0]), 0, largestBitValue(8)) &&
-                            between(parseInt(parts[1]), 0, largestBitValue(6));
+                    valid = isBetween(parseInt(parts[0]), 0, largestBitValue(8)) &&
+                            isBetween(parseInt(parts[1]), 0, largestBitValue(6));
                     value = parseInt(toBinaryString(parts[0], 8) +
-                                             toBinaryString(parts[1], 6)
+                                    toBinaryString(parts[1], 6)
                             , 2);
                 }
                 break;
             case STRUCT_888:
                 if (isStructInteger(str, 3)) {
                     String[] parts = str.split(STRUCT_SEPARATOR, -1);
-                    valid = between(parseInt(parts[0]), 0, largestBitValue(8)) &&
-                            between(parseInt(parts[1]), 0, largestBitValue(8)) &&
-                            between(parseInt(parts[2]), 0, largestBitValue(8));
+                    valid = isBetween(parseInt(parts[0]), 0, largestBitValue(8)) &&
+                            isBetween(parseInt(parts[1]), 0, largestBitValue(8)) &&
+                            isBetween(parseInt(parts[2]), 0, largestBitValue(8));
                     value = parseInt(toBinaryString(parts[0], 8) +
-                                             toBinaryString(parts[1], 8) +
-                                             toBinaryString(parts[2], 8)
+                                    toBinaryString(parts[1], 8) +
+                                    toBinaryString(parts[2], 8)
                             , 2);
                 }
                 break;

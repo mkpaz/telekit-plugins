@@ -1,0 +1,61 @@
+#linetest > .split-pane {
+    -fx-background-color: transparent, -fx-background;
+}
+
+#linetest .list-view .list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+#linetest .task-list-cell > .status {
+    -fx-font-size: 1.5em;
+    -fx-icon-color: -fx-text-background-color;
+}
+#linetest .task-list-cell > .status:success {
+    -fx-icon-color: -fx-color-success;
+}
+#linetest .task-list-cell > .status:error {
+    -fx-icon-color: -fx-color-error;
+}
+#linetest .list-cell:selected > .task-list-cell > .status:success,
+#linetest .list-cell:selected > .task-list-cell > .status:error {
+    -fx-icon-color: -fx-text-background-color;
+}
+#linetest .task-list-cell > * > .data {
+    -fx-font-size: 0.9em;
+    -fx-font-style: italic;
+}
+
+#linetest .task > .task-layer {
+    -fx-background-color: -fx-background;
+    -fx-spacing: 10;
+}
+#linetest .task > .task-layer > .status:error > * {
+    -fx-icon-color: -fx-color-error;
+    -fx-text-fill: -fx-color-error;
+}
+#linetest .task > .task-layer > .status > .font-icon {
+    -fx-font-size: 1.6em;
+}
+#linetest .task > .task-layer > .status > .label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
+#linetest .task > .task-layer > .duration {
+    -fx-font-size: 1.2em;
+}
+#linetest .task > .task-layer > .table-view .table-row-cell {
+    -fx-cell-size: 2.6em;
+}
+#linetest .task > .task-layer > .gauge-box {
+    -fx-background-color: -fx-box-border, -fx-control-inner-background;
+    -fx-background-insets: 0, 1;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+#linetest .measured-values-table .table-cell:warning {
+    -fx-text-fill: -fx-color-warning;
+}
+#linetest .measured-values-table .table-cell:error {
+    -fx-text-fill: -fx-color-error;
+}

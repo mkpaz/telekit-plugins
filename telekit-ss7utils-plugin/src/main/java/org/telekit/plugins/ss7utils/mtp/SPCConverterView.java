@@ -3,6 +3,7 @@ package org.telekit.plugins.ss7utils.mtp;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.material2.Material2MZ;
 import org.telekit.base.desktop.Component;
 import org.telekit.base.di.Initializable;
@@ -199,6 +201,9 @@ public class SPCConverterView extends HBox implements Initializable, Component {
 
     @Override
     public void reset() {}
+
+    @Override
+    public @Nullable Node getPrimaryFocusNode() { return spcText; }
 
     ///////////////////////////////////////////////////////////////////////////
 

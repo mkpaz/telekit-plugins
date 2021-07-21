@@ -1,4 +1,4 @@
-package org.telekit.plugins.translit;
+package org.telekit.plugins.linetest;
 
 import org.telekit.base.di.DependencyModule;
 import org.telekit.base.i18n.BundleLoader;
@@ -8,28 +8,37 @@ import org.telekit.base.plugin.Plugin;
 import org.telekit.base.service.ArtifactRepository;
 import org.telekit.base.service.crypto.EncryptionService;
 import org.telekit.base.util.ClasspathResource;
-import org.telekit.plugins.translit.i18n.TranslitMessages;
-import org.telekit.plugins.translit.tool.TranslitTool;
+import org.telekit.plugins.linetest.database.JdbcStore;
+import org.telekit.plugins.linetest.i18n.LinetestMessages;
+import org.telekit.plugins.linetest.tool.LinetestTool;
 
 import java.io.InputStreamReader;
 import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-@Includes(TranslitTool.class)
-public class TranslitPlugin implements Plugin {
+@Includes({LinetestTool.class})
+public class LinetestPlugin implements Plugin {
 
-    public static final ClasspathResource PLUGIN_MODULE_PATH = ClasspathResource.of("/org/telekit/plugins/translit", TranslitPlugin.class);
+    public static final ClasspathResource PLUGIN_MODULE_PATH = ClasspathResource.of("/org/telekit/plugins/linetest", LinetestPlugin.class);
     public static final String PLUGIN_PROPERTIES_FILE = "plugin.properties";
+    public static final Set<String> STYLESHEETS = Set.of(
+            PLUGIN_MODULE_PATH.concat("assets/index.css").toString()
+    );
 
     private final Metadata metadata;
+    private final JdbcStore jdbcStore;
 
-    public TranslitPlugin() throws Exception {
+    public LinetestPlugin() throws Exception {
         metadata = new Metadata();
 
-        Properties properties = new Properties();
         String path = PLUGIN_MODULE_PATH.concat(PLUGIN_PROPERTIES_FILE).toString();
-        InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(path)), UTF_8);
+        InputStreamReader reader = new InputStreamReader(
+                Objects.requireNonNull(getClass().getResourceAsStream(path)),
+                UTF_8
+        );
+
+        Properties properties = new Properties();
         properties.load(reader);
 
         metadata.setName(properties.getProperty(METADATA_NAME));
@@ -38,31 +47,38 @@ public class TranslitPlugin implements Plugin {
         metadata.setDescription(properties.getProperty(METADATA_DESCRIPTION));
         metadata.setHomePage(properties.getProperty(METADATA_HOMEPAGE));
         metadata.setPlatformVersion(properties.getProperty(METADATA_PLATFORM_VERSION));
+
+        this.jdbcStore = JdbcStore.createDefault();
     }
 
     @Override
     public Metadata getMetadata() { return metadata; }
 
     @Override
-    public Collection<? extends DependencyModule> getModules() { return Collections.emptyList(); }
+    public Collection<? extends DependencyModule> getModules() {
+        return List.of(new LinetestDependencyModule(jdbcStore));
+    }
 
     @Override
-    public BundleLoader getBundleLoader() { return TranslitMessages.getLoader(); }
+    public BundleLoader getBundleLoader() { return LinetestMessages.getLoader(); }
 
     @Override
-    public Collection<String> getStylesheets() { return Collections.emptyList(); }
+    public Collection<String> getStylesheets() { return STYLESHEETS; }
 
     @Override
     public ArtifactRepository getRepository() { return null; }
 
     @Override
-    public void start() {}
+    public void start() {
+        jdbcStore.migrate();
+    }
 
     @Override
     public void stop() {}
 
     @Override
-    public void updateEncryptedData(EncryptionService encryptionService, EncryptionService encryptionService1) {}
+    public void updateEncryptedData(EncryptionService oldEncryptor,
+                                    EncryptionService newEncryptor) {}
 
     @Override
     public boolean providesDocs() { return false; }

@@ -1,0 +1,84 @@
+MA5600T(config-test)#
+  Testing Port : 0/3/0
+  MGid         : 0
+  Terminalid   : A0
+  Testing time : 2021/07/23 12:43
+  ------------------------------------------------------------------------------
+  Conclusion Items                      Result
+  ------------------------------------------------------------------------------
+  Line state                            Normal
+    Length A(M)                         0
+    Length B(M)                         0
+  PPA test result                       PPA not detected
+  Terminal status                       R-C network (on hook or modem exist)
+  ------------------------------------------------------------------------------
+  Test Items                            Value               Status
+  ------------------------------------------------------------------------------
+  Primary test result parameter:
+   ---------------------------------------------------------------------------
+    A->G DC voltage                     0.000      V        valid
+    B->G DC voltage                     0.000      V        valid
+    A->B DC voltage                     0.000      V        valid
+    --------------------------------------------------------------------------
+    A->G AC voltage                     0.000      Vrms     valid
+    B->G AC voltage                     0.000      Vrms     valid
+    A->B AC voltage                     0.000      Vrms     valid
+    A->G AC frequency                   0          Hz       invalid
+    B->G AC frequency                   0          Hz       invalid
+    A->B AC frequency                   0          Hz       invalid
+    --------------------------------------------------------------------------
+    A->ground insulation resistance     >5         megohm   valid
+    B->ground insulation resistance     >5         megohm   valid
+    A->B insulation resistance(low)     >5         megohm   valid
+    B->A insulation resistance(low)     >5         megohm   valid
+    A->B insulation resistance(high)    1.609      kilohm   valid
+    B->A insulation resistance(high)    --         ohm      not support
+    --------------------------------------------------------------------------
+    A->ground capacitance               0          nF       valid
+    B->ground capacitance               0          nF       valid
+    A->B capacitance(low)               1.076      uF       valid
+    A->B capacitance(high)              0          nF       invalid
+
+  Secondary test result parameter:
+    --------------------------------------------------------------------------
+    A->ground conductance               0.000      uS       valid
+    B->ground conductance               0.000      uS       valid
+    A->B conductance(low)               0.677      uS       valid
+    A->B conductance(high)              --         uS       not support
+    --------------------------------------------------------------------------
+    A->ground susceptance               -2.542     uS       valid
+    B->ground susceptance               -3.600     uS       valid
+    A->B susceptance(low)               1.142      uS       valid
+    A->B susceptance(high)              --         uS       not support
+    --------------------------------------------------------------------------
+    A->ground DC current                0          uA       valid
+    B->ground DC current                0          uA       valid
+    A->B DC current                     0          uA       valid
+    B->A DC current                     0          uA       valid
+    --------------------------------------------------------------------------
+    A->ground AC current                0          uA       valid
+    B->ground AC current                0          uA       valid
+    A->B AC current                     0          uA       valid
+    B->A AC current                     0          uA       valid
+
+  Test auxiliary parameter:
+  ----------------------------------------------------------------------------
+    Test signal frequency               --         Hz       not support
+    Input resistance                    --         ohm      not support
+    Maximum voltage for signature       --         V        not support
+    A->ground max voltage               -1.591     V        valid
+    A->ground minimum voltage           -44.180    V        valid
+    B->ground max voltage               -1.550     V        valid
+    B->ground minimum voltage           -44.170    V        valid
+    A->B max voltage                    44.180     V        valid
+    A->B minimum voltage                -43.610    V        valid
+    A->ground max current               -46        uA       valid
+    A->ground minimum current           -87        uA       valid
+    B->ground max current               61         uA       valid
+    B->ground minimum current           25         uA       valid
+    A->B max current                    87         uA       valid
+    A->B minimum current                47         uA       valid
+------------------------------------------------------------------------------
+
+
+MA5600T(config-test)#

@@ -2,7 +2,7 @@ package org.telekit.plugins.ss7utils.demo;
 
 import org.telekit.base.desktop.Component;
 import org.telekit.base.i18n.BundleLoader;
-import org.telekit.controls.BaseLauncher;
+import org.telekit.controls.demo.BaseLauncher;
 import org.telekit.plugins.ss7utils.i18n.SS7UtilsMessages;
 import org.telekit.plugins.ss7utils.isup.CICTableView;
 

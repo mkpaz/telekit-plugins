@@ -10,6 +10,7 @@
     <modules>
         <module>telekit-ss7utils-plugin</module>
         <module>telekit-translit-plugin</module>
+        <module>telekit-linetest-plugin</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -29,6 +30,7 @@
 
         <test.assertj.version>3.19.0</test.assertj.version>
         <test.junit.version>5.7.0</test.junit.version>
+        <test.slf4j.verstion>1.7.32</test.slf4j.verstion>
 
         <!-- plugins -->
         <plugin.antrun.version>1.8</plugin.antrun.version>
@@ -98,6 +100,11 @@
                 <artifactId>telekit-controls</artifactId>
                 <version>${telekit.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.telekit</groupId>
+                <artifactId>telekit-tests</artifactId>
+                <version>${telekit.version}</version>
+            </dependency>
 
             <!-- TEST -->
             <dependency>
@@ -122,6 +129,24 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-params</artifactId>
                 <version>${test.junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${test.slf4j.verstion}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${test.slf4j.verstion}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${test.slf4j.verstion}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

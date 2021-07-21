@@ -2,12 +2,13 @@ package org.telekit.plugins.translit.tool;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.telekit.base.desktop.Component;
 import org.telekit.base.di.Initializable;
@@ -112,4 +113,7 @@ public class TranslitView extends GridPane implements Initializable, Component {
 
     @Override
     public void reset() {}
+
+    @Override
+    public @Nullable Node getPrimaryFocusNode() { return origText; }
 }

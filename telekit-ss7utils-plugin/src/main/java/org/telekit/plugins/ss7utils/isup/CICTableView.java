@@ -4,10 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import org.jetbrains.annotations.Nullable;
 import org.telekit.base.desktop.Component;
 import org.telekit.base.di.Initializable;
 import org.telekit.base.util.CollectionUtils;
@@ -152,4 +154,7 @@ public class CICTableView extends HBox implements Initializable, Component {
 
     @Override
     public void reset() {}
+
+    @Override
+    public @Nullable Node getPrimaryFocusNode() { return cicSearch; }
 }

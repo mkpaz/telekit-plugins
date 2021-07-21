@@ -2,7 +2,7 @@ package org.telekit.plugins.translit.demo;
 
 import org.telekit.base.desktop.Component;
 import org.telekit.base.i18n.BundleLoader;
-import org.telekit.controls.BaseLauncher;
+import org.telekit.controls.demo.BaseLauncher;
 import org.telekit.plugins.translit.i18n.TranslitMessages;
 import org.telekit.plugins.translit.tool.TranslitView;
 

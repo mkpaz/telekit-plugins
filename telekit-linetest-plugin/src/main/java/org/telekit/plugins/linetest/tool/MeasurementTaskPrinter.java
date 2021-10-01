@@ -57,8 +57,8 @@ final class MeasurementTaskPrinter {
         this.doc = new PDDocument();
 
         try {
-            normalFont = loadFont(theme.getRegularFont(FontWeight.NORMAL, FontPosture.REGULAR), 11);
-            headerFont = loadFont(theme.getRegularFont(FontWeight.BOLD, FontPosture.REGULAR), 14);
+            normalFont = loadFont(theme.getDocumentFont(FontWeight.NORMAL, FontPosture.REGULAR), 11);
+            headerFont = loadFont(theme.getDocumentFont(FontWeight.BOLD, FontPosture.REGULAR), 14);
             monospaceFont = loadFont(theme.getMonospaceFont(FontWeight.NORMAL), 11);
 
             printMainPage(task);

@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>telekit-plugins</artifactId>
-        <groupId>org.telekit.plugins</groupId>
+        <groupId>telekit.plugins</groupId>
         <version>1.1.0</version>
     </parent>
     <artifactId>telekit-translit-plugin</artifactId>
 
     <properties>
         <plugin.name>Translit</plugin.name>
-        <launcherClass>org.telekit.plugins.translit.demo.PluginLauncher</launcherClass>
+        <launcherClass>telekit.plugins.translit.demo.PluginLauncher</launcherClass>
     </properties>
 
     <build>
@@ -20,12 +20,12 @@
             <!-- everything in the `resources` goes under package prefix -->
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>org/telekit/plugins/translit</targetPath>
+                <targetPath>telekit/plugins/translit</targetPath>
                 <filtering>false</filtering>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>org/telekit/plugins/translit</targetPath>
+                <targetPath>telekit/plugins/translit</targetPath>
                 <filtering>true</filtering>
                 <includes>
                     <include>plugin.properties</include>
@@ -89,7 +89,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.telekit</groupId>
+            <groupId>telekit</groupId>
             <artifactId>telekit-controls</artifactId>
             <version>${telekit.version}</version>
         </dependency>

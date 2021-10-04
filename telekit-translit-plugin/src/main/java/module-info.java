@@ -1,5 +1,5 @@
-import org.telekit.base.plugin.Plugin;
-import org.telekit.plugins.translit.TranslitPlugin;
+import telekit.base.plugin.Plugin;
+import telekit.plugins.translit.TranslitPlugin;
 
 module telekit.plugins.translit {
 
@@ -10,14 +10,14 @@ module telekit.plugins.translit {
     requires telekit.controls;
     requires org.apache.commons.lang3;
 
-    exports org.telekit.plugins.translit;
-    exports org.telekit.plugins.translit.tool;
+    exports telekit.plugins.translit;
+    exports telekit.plugins.translit.tool;
 
-    exports org.telekit.plugins.translit.demo to
+    exports telekit.plugins.translit.demo to
             javafx.graphics, javafx.base, telekit.base;
-    opens org.telekit.plugins.translit.demo to
+    opens telekit.plugins.translit.demo to
             javafx.graphics, javafx.base, telekit.base;
 
-    exports org.telekit.plugins.translit.i18n;
-    opens org.telekit.plugins.translit.i18n;
+    exports telekit.plugins.translit.i18n;
+    opens telekit.plugins.translit.i18n;
 }

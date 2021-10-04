@@ -100,7 +100,7 @@ public class IskratelSAKOutputParser {
                 // remove escape codes
                 .replaceAll("\u001B\\d|\u001B\\[(\\d{1,2}(;[\\d]{1,2})?)?[mC]", "")
                 // restore input command
-                .replaceAll("^start_test", "> start_test")
+                .replaceAll("^start_test", "=> start_test")
                 .trim();
     }
 

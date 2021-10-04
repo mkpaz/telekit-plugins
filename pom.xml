@@ -30,7 +30,7 @@
 
         <test.assertj.version>3.19.0</test.assertj.version>
         <test.junit.version>5.7.0</test.junit.version>
-        <test.slf4j.verstion>1.7.32</test.slf4j.verstion>
+        <test.slf4j.verstion>2.0.0-alpha5</test.slf4j.verstion>
 
         <!-- plugins -->
         <plugin.antrun.version>1.8</plugin.antrun.version>

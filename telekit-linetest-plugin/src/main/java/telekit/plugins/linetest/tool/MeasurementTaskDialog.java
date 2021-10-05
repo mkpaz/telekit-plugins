@@ -2,7 +2,6 @@ package telekit.plugins.linetest.tool;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -53,7 +52,7 @@ class MeasurementTaskDialog extends OverlayDialog implements Focusable {
     Button saveBtn;
 
     private final ProviderRegistry providers;
-    private final ObjectProperty<LinetestProvider> selectedProvider = new SimpleObjectProperty<>(this, "selectedProvider");
+    private final ObjectProperty<LinetestProvider> selectedProvider = new UnconditionalObjectProperty<>(this, "selectedProvider");
 
     private Action action;
     private MeasurementTask task;
@@ -245,8 +244,8 @@ class MeasurementTaskDialog extends OverlayDialog implements Focusable {
         }
 
         lineIdText.setText(task.getLine());
-        // this will trigger auto update on all other fields
-        providerChoice.setValue(provider);
+        // this will trigger auto update on all others fields (UnconditionalObjectProperty)
+        selectedProvider.set(provider);
     }
 
     private void updateConnectionParams(@Nullable ConnectionParams params) {

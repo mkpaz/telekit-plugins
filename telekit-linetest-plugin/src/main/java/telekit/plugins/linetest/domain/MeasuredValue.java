@@ -7,10 +7,10 @@ import java.util.Objects;
 public class MeasuredValue implements Comparable<MeasuredValue> {
 
     public enum ValueType {
-        RESISTANCE("Resistance", "Ohm"),
-        CAPACITANCE("Capacitance", "F"),
         AC_VOLTAGE("AC Voltage", "V"),
-        DC_VOLTAGE("DC Voltage", "V");
+        DC_VOLTAGE("DC Voltage", "V"),
+        RESISTANCE("Resistance", "Ohm"),
+        CAPACITANCE("Capacitance", "F");
 
         private final String title;
         private final String unit;

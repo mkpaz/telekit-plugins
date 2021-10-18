@@ -9,7 +9,7 @@ module telekit.plugins.linetest {
 
     requires org.apache.commons.lang3;
     requires org.apache.commons.net;
-    requires sshj;
+    requires com.hierynomus.sshj;
     requires expectit.core;
     requires org.apache.commons.collections4;
     requires commons.dbutils;
